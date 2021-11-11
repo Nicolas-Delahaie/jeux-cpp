@@ -1,5 +1,5 @@
 /*
-  Auteur : C. MARC
+  Auteur : N. DELAHAIE
   Date de dernière modification : 09/11/2021
 */
 #include "programmes.h"
