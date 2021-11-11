@@ -12,7 +12,7 @@
 using namespace std;
 
 
-// **************    F O N C T I O N N E L S   ********************
+// **************    F U N C T I O N A L   ********************
 
 void test()
 {
