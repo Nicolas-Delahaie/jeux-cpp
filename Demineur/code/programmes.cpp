@@ -110,7 +110,7 @@ void afficherLigne(unsigned int nombreCases)
 
 // **************    T A B L E A U  -  F I X E     ********************
 
-void afficheTableauNombres(const short unsigned int tab[][LONGUEUR],const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
+void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
     Couleur couleurNombre;
     short unsigned int nombre;
@@ -173,7 +173,7 @@ void afficheTableauNombres(const short unsigned int tab[][LONGUEUR],const unsign
     }
 }
 
-void afficheTableauCaracteres(char tab[][LONGUEUR],const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR, unsigned int bombesRestantes)
+void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR,  unsigned short int LONGUEUR, unsigned int bombesRestantes)
 {
     Couleur couleurCaractere;
     char caractere;
@@ -242,7 +242,7 @@ void afficheTableauCaracteres(char tab[][LONGUEUR],const unsigned short int &LAR
     }
 }
 
-void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR,  unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee)
+void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
     const unsigned int NOMBRE_BOMBES = 30;          //Nombre de bombes dans le tableau
     bool dejaPresent;                               //Indique si emplacementBombe a déjà été selectionné
@@ -345,7 +345,7 @@ void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], const unsig
     }
 }
 
-void remplissageTableauVisible(char tab[][LONGUEUR], const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
+void remplissageTableauVisible(char tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
     for (unsigned short int ligne = 0; ligne < LONGUEUR; ligne++)
     {
@@ -357,7 +357,7 @@ void remplissageTableauVisible(char tab[][LONGUEUR], const unsigned short int &L
 }
 
 
-void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee,const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
+void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
     char lettreColonne;
     unsigned short int nombreLigne;
@@ -368,13 +368,16 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
     {
         cout << "Saisie : ";
         cin >> instruction;
-        cin >> lettreColonne;
-        cin >> nombreLigne;
+        if (instruction != 'C' && instruction != 'S' && instruction != 'R')         {cout << "Mauvaise instruction saisie, recommencez." << endl;}
 
-        if ((instruction != 'C') && (instruction != 'S'))                           {cout << "Mauvaise instruction saisie, recommencez." << endl;}                                
-        else if ((int(lettreColonne) < 65) || (int(lettreColonne) >= 65+LARGEUR))   {cout << "Mauvaise lettre saisie, recommencez." << endl;}  
-        else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                    {cout << "Mauvaise ligne saisie, recommencez." << endl;}                                     
-        else                                                                        {break;}
+        if (instruction == 'C' || instruction == 'S')
+        {
+            cin >> lettreColonne;
+            cin >> nombreLigne;
+
+            if ((int(lettreColonne) < 65) || (int(lettreColonne) >= 65+LARGEUR))        {cout << "Mauvaise lettre saisie, recommencez." << endl;}  
+            else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                    {cout << "Mauvaise ligne saisie, recommencez." << endl;}                                     
+        }
     }
 
     ligneCaseCiblee = static_cast<unsigned short int>(nombreLigne - 1);
@@ -382,7 +385,7 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
 }
 
 
-void modifCase (char tabVisible[][LONGUEUR], unsigned short int tabInvisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
+void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
 {
     //MODIFICATIONS    
     if (instruction == 'C')
@@ -395,7 +398,7 @@ void modifCase (char tabVisible[][LONGUEUR], unsigned short int tabInvisible[][L
         //Si la case est vide
         else if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
         {
-            remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee);
+            remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR);
         }
         //Si la case est un nombre
         else                              
@@ -409,18 +412,50 @@ void modifCase (char tabVisible[][LONGUEUR], unsigned short int tabInvisible[][L
     }
 }
 
-void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
+void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
-    //
+    unsigned short int y;
+    unsigned short int x;
+    short int xmin;                 //Encadrement de recherche de bombes
+    short int xmax;                 //
+    short int ymin;                 //
+    short int ymax;                 //
+    
     if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)
     {
         tabVisible[ligneCaseCiblee][colonneCaseCiblee] = ' ';
-        ahh
-    }    
 
+        ymin = static_cast<short int>(ligneCaseCiblee -1);
+        ymax = static_cast<short int>(ligneCaseCiblee +1);
+        xmin = static_cast<short int>(colonneCaseCiblee -1);
+        xmax = static_cast<short int>(colonneCaseCiblee +1);
+
+        //Ne prend pas en compte les cases en dehors du tableau
+        if (ligneCaseCiblee == 0)                 {ymin = ligneCaseCiblee;}
+        else if (ligneCaseCiblee == LONGUEUR -1)  {ymax = ligneCaseCiblee;}
+        if (colonneCaseCiblee == 0)               {xmin = colonneCaseCiblee;}
+        else if (colonneCaseCiblee == LARGEUR -1) {xmax = colonneCaseCiblee;}
+
+        for (y = ymin ; y < ymax +1 ; y++)
+        {
+            for ( x = xmin ; x < xmax +1 ; x++)
+            {
+                if ( tabVisible[y][x] == char(219))    //Case non découverte
+                {
+                    //if ( ( (y == ligneCaseCiblee) || (x == colonneCaseCiblee) ) && (tabInvisible[y][x] == 0) )      //
+                   
+                    remplissageCasesVidesRecursif(tabInvisible, tabVisible, y, x, LARGEUR, LONGUEUR);                 
+                }
+            }
+        }
+    }
+    else 
+    {
+        tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
+    }
 }
 
-void remplissageEcranFin(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR],const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
+void remplissageEcranFin(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
     //Parcourt le tableau
     for (unsigned short int ligne = 0 ; ligne < LONGUEUR ; ligne++)
@@ -443,7 +478,7 @@ void remplissageEcranFin(unsigned short int tabInvisible[][LONGUEUR], char tabVi
 }
 
 
-bool bombeCreusee(unsigned short int tabInvisible[][LONGUEUR], const unsigned short int &ligneCaseCiblee, const unsigned short int &colonneCaseCiblee)
+bool bombeCreusee(unsigned short int tabInvisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
     if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9)
     {
