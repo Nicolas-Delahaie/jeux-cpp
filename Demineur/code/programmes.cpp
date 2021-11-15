@@ -127,7 +127,6 @@ void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int
                 afficherCaractereEnCouleur (char(65+i), rouge);
                 cout << " |";
             }
-            afficherLigne(LARGEUR+1);
 
         }
         else
@@ -168,8 +167,8 @@ void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int
                     cout << " |";
                 }
             }
-            afficherLigne(LARGEUR+1);
         }
+        afficherLigne(LARGEUR+1);
     }
 }
 
@@ -192,7 +191,6 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
                 afficherCaractereEnCouleur (char(65+i), rouge);
                 cout << " |";
             }
-            afficherLigne(LARGEUR+1);
 
         }
         else
@@ -237,8 +235,8 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
                     cout << " |";
                 }
             }
-            afficherLigne(LARGEUR+1);
         }
+        afficherLigne(LARGEUR+1);
     }
 }
 
@@ -356,7 +354,6 @@ void remplissageTableauVisible(char tab[][LONGUEUR], unsigned short int LARGEUR,
     }   
 }
 
-
 void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR)
 {
     char lettreColonne;
@@ -383,7 +380,6 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
     ligneCaseCiblee = static_cast<unsigned short int>(nombreLigne - 1);
     colonneCaseCiblee = static_cast<unsigned short int>(lettreColonne - 65);
 }
-
 
 void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
 {
@@ -476,7 +472,6 @@ void remplissageEcranFin(unsigned short int tabInvisible[][LONGUEUR], char tabVi
         }
     }
 }
-
 
 bool bombeCreusee(unsigned short int tabInvisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {

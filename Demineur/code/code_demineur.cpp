@@ -29,13 +29,7 @@ using namespace std;
 
 int main (void)
 {   
-    //test();
-    /*
-    char test;
-    test = 20;
-    cout << test << endl;
-    */
-
+    
 /*
     cout << "Saisie : ";
         cin >> instruction;
@@ -97,7 +91,7 @@ int main (void)
         //Initialisation des tableaux en fonction des emplacements de bombe
         remplissageTableauInvisible(tableauInvisible, LARGEUR, LONGUEUR, ligneCase, colonneCase);
         
-        modifCase(tableauVisible, tableauInvisible,instruction, ligneCase, colonneCase);
+        modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
         effacer();
         
         while (true)
@@ -109,7 +103,7 @@ int main (void)
             saisieVerifTraduction(instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
             
             //Modification adaptée à l'instruction
-            modifCase(tableauVisible, tableauInvisible,instruction, ligneCase, colonneCase);
+            modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
             if (instruction == 'C')
             {
                 if (bombeCreusee(tableauInvisible, ligneCase, colonneCase))

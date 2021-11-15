@@ -1,0 +1,808 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Algorithme</nom>
+  <date_creation>8/11/2021 02:53</date_creation>
+  <Elements>
+    <Action>
+      <Position>1484;34</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>MINES_WEEPER</Titre>
+      <DetailsVisible>0</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>796;243</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>Inititalisation</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+    <Action>
+      <Position>264;359</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>NOMBRE_BOMBES
+LARGEUR
+LONGUEUR</PostAssertion>
+      <Titre>CONSTANTES</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>0</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>147;498</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>NOMBRE_BOMBES
+← 20</Titre>
+          <DetailsVisible>0</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>301;500</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>LARGEUR
+← 10</Titre>
+          <DetailsVisible>0</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>402;503</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>LONGUEUR
+← 10</Titre>
+          <DetailsVisible>0</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+    <Action>
+      <Position>1006;363</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>NOMBRE_BOMBES
+LONGUEUR
+LARGEUR</PreAssertion>
+      <PostAssertion>tabEffectif
+tabRempli</PostAssertion>
+      <Titre>TABLEAUX</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>1900;565</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>LONGUEUR
+LARGEUR</PreAssertion>
+          <PostAssertion>tableauVisible</PostAssertion>
+          <Titre>Remplissage
+tableauVisible</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Iteration>
+              <Position>2039.5;647.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>ligne de 0 à 
+LONGUEUR -1</Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Iteration>
+                  <Position>2038.5;725.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>colonne de 0 à
+LARGEUR -1</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>1967;800</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>tableauVisible[ligne][colonne]
+← caractère ASCII </Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Iteration>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>835;605</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>LONGUEUR
+LARGEUR</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>Remplissage
+tableauInvisible</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>434;773</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>LONGUEUR, LARGEUR,
+NOMBRE_BOMBES</PreAssertion>
+              <PostAssertion>emplacementsBombes</PostAssertion>
+              <Titre>remplissage
+emplacementsBombes</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>443;911</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>i ← 0</Titre>
+                  <DetailsVisible>0</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+                <Iteration>
+                  <Position>766.5;918.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>?</Titre>
+                  <IterationFixe>0</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>593;1108</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>emplacementBombe ←
+aléatoire entre 0 et caseMax</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Iteration>
+                      <Position>816.5;1023.5</Position>
+                      <StyleLien>1</StyleLien>
+                      <Titre>n de
+0 à i</Titre>
+                      <IterationFixe>1</IterationFixe>
+                      <Enfants>
+                        <Condition>
+                          <Position>702;1189</Position>
+                          <StyleLien>1</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>emplacementBombe =
+emplacementsBombes[n]</Titre>
+                              <Enfants>
+                                <Sortie>
+                                  <Position>779;1261</Position>
+                                </Sortie>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>dejaPresent
+← vrai</Titre>
+                              <Enfants/>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </Iteration>
+                    <Condition>
+                      <Position>985;1026</Position>
+                      <StyleLien>1</StyleLien>
+                      <estUnique>1</estUnique>
+                      <operationsLogiques>
+                        <operation>
+                          <Titre>dejaPresent
+= faux</Titre>
+                          <Enfants>
+                            <Action>
+                              <Position>946;1116</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>i ← i +1</Titre>
+                              <DetailsVisible>0</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                            <Action>
+                              <Position>1032;1124</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>emplacementsBombes[i]
+= emplacementBombe</Titre>
+                              <DetailsVisible>0</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </operation>
+                        <operation>
+                          <Titre>Sinon</Titre>
+                          <Enfants/>
+                        </operation>
+                      </operationsLogiques>
+                    </Condition>
+                    <Action>
+                      <Position>705;1024</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>dejaPresent
+← faux</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Condition>
+                      <Position>457;1029</Position>
+                      <StyleLien>1</StyleLien>
+                      <estUnique>1</estUnique>
+                      <operationsLogiques>
+                        <operation>
+                          <Titre>i = NOMBRE_BOMBES</Titre>
+                          <Enfants>
+                            <Sortie>
+                              <Position>530;1092</Position>
+                            </Sortie>
+                          </Enfants>
+                        </operation>
+                        <operation>
+                          <Titre>Sinon</Titre>
+                          <Enfants/>
+                        </operation>
+                      </operationsLogiques>
+                    </Condition>
+                  </Enfants>
+                </Iteration>
+                <Action>
+                  <Position>518;911</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>caseMax
+← LONGUEUR
+* LARGEUR -1</Titre>
+                  <DetailsVisible>0</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>1194;782</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>tabNombres
+LONGUEUR
+LARGEUR</PreAssertion>
+              <PostAssertion>tabNombres</PostAssertion>
+              <Titre>remplissage 
+cases vides</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Iteration>
+                  <Position>1330.5;856.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>ligne de 0
+à LONGUEUR-1</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Iteration>
+                      <Position>1329.5;934.5</Position>
+                      <StyleLien>1</StyleLien>
+                      <Titre>colonne de 0
+à LARGEUR-1</Titre>
+                      <IterationFixe>1</IterationFixe>
+                      <Enfants>
+                        <Action>
+                          <Position>1269;1011</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>tabNombres[ligne][colonne]
+← 0</Titre>
+                          <DetailsVisible>0</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Iteration>
+                  </Enfants>
+                </Iteration>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>1555;778</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>LARGEUR, LONGUEUR,
+emplacementsBombes,
+tabNomb res</PreAssertion>
+              <PostAssertion>tabNombres</PostAssertion>
+              <Titre>remplissage
+bombes</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Iteration>
+                  <Position>1756.5;860.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>i de 0 à
+NOMBRE_BOMBES</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>1633;955</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>ligneBombe ← 
+emplacementsBombes[i]
+/ LARGEUR</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>1718;1046</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>colonneBombe ←
+emplacementsBombes[i]
+% LONGUEUR</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>1855;974</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>tabNombres
+[ligneBombe][colonneBombe]
+← 10</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Iteration>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+    <Action>
+      <Position>3073;485</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>affichage
+tableau</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Iteration>
+          <Position>3141.5;581.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>ligne de 0
+à LONGUEUR +1</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Condition>
+              <Position>3094;691</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>0</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>ligne
+= 0</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>2729;808</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>LARGEUR</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Afficher
+ligne</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>2828;808</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Affichage
+lettres colorées</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>2763;928</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>Afficher
+"|   |"</Titre>
+                          <DetailsVisible>0</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                        <Iteration>
+                          <Position>2861.5;932.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>i de 0 à
+LARGEUR</Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Action>
+                              <Position>2810;1007</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>Afficher " "+ 
+caractère ASCII de
+65+ i en rouge + " |"</Titre>
+                              <DetailsVisible>0</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>3015;802</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>LARGEUR</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Afficher
+ligne</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants>
+                    <Iteration>
+                      <Position>3249.5;781.5</Position>
+                      <StyleLien>1</StyleLien>
+                      <Titre>colonne de 0
+à LARGEUR +1</Titre>
+                      <IterationFixe>1</IterationFixe>
+                      <Enfants>
+                        <Condition>
+                          <Position>3196;863</Position>
+                          <StyleLien>0</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>colonne
+= 0</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>2993;1037</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>Afficher "| "+
+ligne en rouge</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                                <Condition>
+                                  <Position>3121;1038</Position>
+                                  <StyleLien>0</StyleLien>
+                                  <estUnique>0</estUnique>
+                                  <operationsLogiques>
+                                    <operation>
+                                      <Titre>ligne 
+> 10</Titre>
+                                      <Enfants>
+                                        <Action>
+                                          <Position>3124;1101</Position>
+                                          <StyleLien>1</StyleLien>
+                                          <PreAssertion>?</PreAssertion>
+                                          <PostAssertion>?</PostAssertion>
+                                          <Titre>Afficher
+" |" </Titre>
+                                          <DetailsVisible>0</DetailsVisible>
+                                          <DetailsVideVisible>1</DetailsVideVisible>
+                                          <Enfants/>
+                                        </Action>
+                                      </Enfants>
+                                    </operation>
+                                    <operation>
+                                      <Titre>Sinon</Titre>
+                                      <Enfants>
+                                        <Action>
+                                          <Position>3170;1159</Position>
+                                          <StyleLien>1</StyleLien>
+                                          <PreAssertion>?</PreAssertion>
+                                          <PostAssertion>?</PostAssertion>
+                                          <Titre>Afficher "|"</Titre>
+                                          <DetailsVisible>0</DetailsVisible>
+                                          <DetailsVideVisible>1</DetailsVideVisible>
+                                          <Enfants/>
+                                        </Action>
+                                      </Enfants>
+                                    </operation>
+                                  </operationsLogiques>
+                                </Condition>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>3202;974</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>Afficher " "+
+tableauVisible[ligne-1][colonne-1]
++ " |"</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </Iteration>
+                    <Action>
+                      <Position>3425;785</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>LARGEUR</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Afficher
+ligne</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Iteration>
+      </Enfants>
+    </Action>
+    <Action>
+      <Position>4398;531</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>remplissage du
+tableauInvisible</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Iteration>
+          <Position>4484.5;604.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>ligne de 0 à
+LONGUEUR</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Iteration>
+              <Position>4482.5;684.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>colonne de 0 à
+LARGEUR</Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Condition>
+                  <Position>4407;763</Position>
+                  <StyleLien>1</StyleLien>
+                  <estUnique>1</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>tableauInvisible[ligne][colonne] != 9</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>4019;866</Position>
+                          <StyleLien>2</StyleLien>
+                          <PreAssertion>ligne
+colonne</PreAssertion>
+                          <PostAssertion>ymax, ymin
+xmax, xmin</PostAssertion>
+                          <Titre>Encadrement
+de recherche</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants>
+                            <Action>
+                              <Position>4021;981</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>ymin ← ligne - 1
+ymax ← ligne +1</Titre>
+                              <DetailsVisible>0</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                            <Action>
+                              <Position>4162;982</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>xmin ← colonne -1
+xmax ← colonne +1</Titre>
+                              <DetailsVisible>0</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </Action>
+                        <Condition>
+                          <Position>4244;1058</Position>
+                          <StyleLien>0</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>ligne = 0</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>4254;1138</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>ymin ←
+ligne</Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>0</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>ligne = LONGUEUR -1</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>4365;1140</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>ymax ←
+ligne</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                        <Condition>
+                          <Position>4415;884</Position>
+                          <StyleLien>0</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>colonne = 0 </Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>4435;955</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>xmin ←
+colonne</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>colonne = LARGEUR-1</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>4554;961</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>xmax ←
+colonne</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                        <Iteration>
+                          <Position>4742.5;926.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>y de ymin
+à ymax</Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Iteration>
+                              <Position>4743.5;1004.5</Position>
+                              <StyleLien>1</StyleLien>
+                              <Titre>x de xmin
+à xmax</Titre>
+                              <IterationFixe>1</IterationFixe>
+                              <Enfants>
+                                <Condition>
+                                  <Position>4673;1085</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <estUnique>1</estUnique>
+                                  <operationsLogiques>
+                                    <operation>
+                                      <Titre>tableauInvisible[x][y] = 9</Titre>
+                                      <Enfants>
+                                        <Action>
+                                          <Position>4664;1162</Position>
+                                          <StyleLien>1</StyleLien>
+                                          <PreAssertion>?</PreAssertion>
+                                          <PostAssertion>?</PostAssertion>
+                                          <Titre>tableauInvisible[ligne][colonne]
+++</Titre>
+                                          <DetailsVisible>0</DetailsVisible>
+                                          <DetailsVideVisible>1</DetailsVideVisible>
+                                          <Enfants/>
+                                        </Action>
+                                      </Enfants>
+                                    </operation>
+                                    <operation>
+                                      <Titre>Sinon</Titre>
+                                      <Enfants/>
+                                    </operation>
+                                  </operationsLogiques>
+                                </Condition>
+                              </Enfants>
+                            </Iteration>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </operation>
+                    <operation>
+                      <Titre>Sinon</Titre>
+                      <Enfants/>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Iteration>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
