@@ -8,6 +8,7 @@ enum Couleur
     rougeFonceRempli = 68,
     jauneSurRouge = 70,
     noirSurRouge = 64,
+    noirSurBleuClair = 176,
 
     /** La couleur gris a pour code couleur 7*/
     gris = 7,
@@ -46,9 +47,9 @@ void afficherLigne(unsigned int nombreCases);
 /*Affiche une ligne en fonction du nombreCases de cases */
 
 
-void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int LARGEUR, unsigned short int LONGUEUR);
+void afficheTableauNombres(unsigned short int tab[][LONGUEUR],unsigned short int LARGEUR, unsigned short int LONGUEUR);
 /*Affiche un tableau composé de nombres dans un tableau*/
-void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR,  unsigned short int LONGUEUR, unsigned int bombesRestantes);
+void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR,  unsigned short int LONGUEUR, int bombesRestantes);
 /*Affiche un tableau composé de caractères dans un tableau*/
 void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee);
 /*Remplit le tableau invisible de nombres et de bombes*/
@@ -56,7 +57,7 @@ void remplissageTableauVisible(char tab[][LONGUEUR], unsigned short int LARGEUR,
 /*Remplit le tableau visible de dalles (219)*/
 void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR);
 /*Saisie l'instructiondu joueur et retourne une ligne, colonne et instruction*/
-void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR);
+void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes);
 /*Modifie une case en fonction des 2 tableaux, de l'instruction et des coordonnées de la case*/
 void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR);
 /*Remplit récursivement les cases vides dans le tableau visible*/

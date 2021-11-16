@@ -12,6 +12,7 @@
 using namespace std;
 
 
+
 // **************    F O N C T I O N N E L S   ********************
 
 void test()
@@ -106,8 +107,6 @@ void afficherLigne(unsigned int nombreCases)
 
 
 
-
-
 // **************    T A B L E A U  -  F I X E     ********************
 
 void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int LARGEUR, unsigned short int LONGUEUR)
@@ -172,8 +171,9 @@ void afficheTableauNombres(short unsigned int tab[][LONGUEUR],unsigned short int
     }
 }
 
-void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR,  unsigned short int LONGUEUR, unsigned int bombesRestantes)
+void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR,  unsigned short int LONGUEUR, int bombesRestantes)
 {
+    Couleur couleurAffichageBombe;
     Couleur couleurCaractere;
     char caractere;
     for (unsigned short int ligne = 0 ; ligne < LONGUEUR +1; ligne++)
@@ -182,9 +182,20 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
         {
             afficherLigne(LARGEUR+1);
             //Affichage lettres colorees
-            cout << "| ";
-            afficherNombreEnCouleur(bombesRestantes, noirSurRouge);
+            
+            if (bombesRestantes >= 0)   
+            {
+                cout << "| ";
+                couleurAffichageBombe = noirSurRouge;
+            }
+            else
+            {
+                cout << "|";
+                couleurAffichageBombe = noirSurBleuClair;
+            }
+            afficherNombreEnCouleur(bombesRestantes, couleurAffichageBombe);
             cout << "|";
+
             for (unsigned int i = 0 ; i < LARGEUR ; i++)
             {
                 cout << " ";
@@ -381,7 +392,7 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
     colonneCaseCiblee = static_cast<unsigned short int>(lettreColonne - 65);
 }
 
-void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, const unsigned short int &LARGEUR, const unsigned short int &LONGUEUR)
+void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes)
 {
     //MODIFICATIONS    
     if (instruction == 'C')
@@ -390,6 +401,7 @@ void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][L
         if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9)
         {
             tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  'X';
+            bombesRestantes -=1;
         }
         //Si la case est vide
         else if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
@@ -405,6 +417,7 @@ void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][L
     else if ((instruction == 'S') && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(219)))
     {
         tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(20);
+        bombesRestantes -=1;
     }
 }
 
