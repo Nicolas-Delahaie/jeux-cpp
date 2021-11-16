@@ -377,19 +377,19 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
         cout << "Saisie : ";
         cin >> instruction;
         if (instruction != 'C' && instruction != 'S' && instruction != 'R')         {cout << "Mauvaise instruction saisie, recommencez." << endl;}
-
-        if (instruction == 'C' || instruction == 'S')
+        if ( (instruction == 'C') || (instruction == 'S') )                    
         {
             cin >> lettreColonne;
             cin >> nombreLigne;
-
-            if ((int(lettreColonne) < 65) || (int(lettreColonne) >= 65+LARGEUR))        {cout << "Mauvaise lettre saisie, recommencez." << endl;}  
-            else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                    {cout << "Mauvaise ligne saisie, recommencez." << endl;}                                     
+            if ((int(lettreColonne) < 65) || (int(lettreColonne) >= 65+LARGEUR))    {cout << "Mauvaise lettre saisie, recommencez." << endl;}  
+            else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                {cout << "Mauvaise ligne saisie, recommencez." << endl;}  
         }
     }
 
     ligneCaseCiblee = static_cast<unsigned short int>(nombreLigne - 1);
     colonneCaseCiblee = static_cast<unsigned short int>(lettreColonne - 65);
+
+    cout << instruction << "  " << ligneCaseCiblee << "  " << colonneCaseCiblee;
 }
 
 void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes)
