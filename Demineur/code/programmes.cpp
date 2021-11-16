@@ -253,7 +253,7 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
 
 void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
-    const unsigned int NOMBRE_BOMBES = 30;          //Nombre de bombes dans le tableau
+    const unsigned int NOMBRE_BOMBES = 60;          //Nombre de bombes dans le tableau
     bool dejaPresent;                               //Indique si emplacementBombe a déjà été selectionné
     unsigned int i;
     unsigned int emplacementsBombes[NOMBRE_BOMBES]; //Liste de tous les emplacements des bombes
@@ -372,24 +372,28 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
 
     //SAISIES-VERIF
     cout << "Instruction (C pour Creuser / S pour Signaler) suivie des coordonnees (lettre puis nombre colles) de la forme 'SA7': "<< endl;
-    while(true)
+    while (true)
     {
         cout << "Saisie : ";
         cin >> instruction;
         if (instruction != 'C' && instruction != 'S' && instruction != 'R')         {cout << "Mauvaise instruction saisie, recommencez." << endl;}
+    
         if ( (instruction == 'C') || (instruction == 'S') )                    
         {
             cin >> lettreColonne;
             cin >> nombreLigne;
             if ((int(lettreColonne) < 65) || (int(lettreColonne) >= 65+LARGEUR))    {cout << "Mauvaise lettre saisie, recommencez." << endl;}  
             else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                {cout << "Mauvaise ligne saisie, recommencez." << endl;}  
+            else                                                                    {break;}
+        }
+        else
+        {
+            break;
         }
     }
 
     ligneCaseCiblee = static_cast<unsigned short int>(nombreLigne - 1);
     colonneCaseCiblee = static_cast<unsigned short int>(lettreColonne - 65);
-
-    cout << instruction << "  " << ligneCaseCiblee << "  " << colonneCaseCiblee;
 }
 
 void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes)

@@ -11,6 +11,7 @@
     -gerer le compteur de cases découvertes
 
     -gerer la selection d'un nombre ou d'un drapeau
+    -empecher de toucher une case vide
     -rajouter instructions pour help (H), recommencer(R) 
 
     -Résoudre problème tableau quand LARGEUR > 10    
@@ -99,6 +100,10 @@ int main (void)
             
             //Modification adaptée à l'instruction
             modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes);
+            if ( instruction == 'R')
+            {
+                break;
+            }
             if (instruction == 'C')
             {
                 if (bombeCreusee(tableauInvisible, ligneCase, colonneCase))
@@ -117,12 +122,15 @@ int main (void)
             }
             effacer();
         }
-        cout << "Recommencer ? oui / non" << endl;
-        cin >> reponseMessageDeFin;
-        if (reponseMessageDeFin == "non") 
+        if (instruction != 'R')
         {
-            cout << "Pas de probleme, tchouss" << endl;
-            jouer = false;
+            cout << "Recommencer ? oui / non" << endl;
+            cin >> reponseMessageDeFin;
+            if (reponseMessageDeFin == "non") 
+            {
+                cout << "Pas de probleme, tchouss" << endl;
+                jouer = false;
+            }
         } 
         else 
         {
