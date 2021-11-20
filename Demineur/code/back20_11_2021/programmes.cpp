@@ -182,27 +182,28 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
             afficherLigne(LARGEUR+1);
             //Affichage lettres colorees
             
-            if (bombesRestantes >= 10)
+            if (bombesRestantes <= 0)
             {
-                cout << "| " << bombesRestantes << "|";
+                cout << "| ";
+                couleurAffichageBombe = noirSurRouge;
             }
-            else if (bombesRestantes >= 0)
-            {
-                cout << "| " << bombesRestantes << " |";
-            }
-            else if (bombesRestantes > -10)
+
+            else
             {
                 cout << "|";
-                afficherNombreEnCouleur(bombesRestantes, noirSurBleuClair);
+                couleurAffichageBombe = noirSurBleuClair;
+            }
+            
+            if (bombesRestantes < 10)
+            {
+                afficherNombreEnCouleur(bombesRestantes, couleurAffichageBombe);
                 cout << " |";
             }
             else
             {
-                cout << "|";
-                afficherNombreEnCouleur(bombesRestantes, noirSurBleuClair);
-                cout << "|";
+                afficherNombreEnCouleur(bombesRestantes, couleurAffichageBombe);
+                cout << " |";
             }
-
 
             for (unsigned int i = 0 ; i < LARGEUR ; i++)
             {

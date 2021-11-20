@@ -4,9 +4,9 @@
  Auteur : N. DELAHAIE
 */
 
-//Tableau 2 dimensions dans une fonction
 
-/*Reste à :
+/*
+Reste à :
     -gerer le comtpeur de cases réellement trouvees
     -gerer le compteur de cases découvertes
 
