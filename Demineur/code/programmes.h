@@ -61,14 +61,16 @@ void remplissageTableauVisible(char tab[][LONGUEUR], unsigned short int LARGEUR,
 /*Remplit le tableau visible de dalles (219)*/
 void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCiblee, unsigned short int &colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR);
 /*Saisie l'instructiondu joueur et retourne une ligne, colonne et instruction*/
-void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes);
+void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes, unsigned int &compteurCasesDecouvertes);
 /*Modifie une case en fonction des 2 tableaux, de l'instruction et des coordonnées de la case*/
-void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR);
+void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned int &compteurCasesDecouvertes);
 /*Remplit récursivement les cases vides dans le tableau visible*/
 void remplissageEcranFin(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR);
 /*Remplit l'écran de fin en monttrant les erreurs du joueur et les bombes qu'il n'a pas trouvés*/
 bool bombeCreusee(unsigned short int tabInvisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee);
 /*Indique si la case est une bombe*/
+unsigned int casesADecouvrir(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR);
+/*Compte le nombre de cases a decouvrir*/
 
 
 #endif

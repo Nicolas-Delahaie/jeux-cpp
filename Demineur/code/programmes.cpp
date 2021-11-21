@@ -261,7 +261,7 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
 
 void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
-    const unsigned int NOMBRE_BOMBES = 10;          //Nombre de bombes dans le tableau
+    const unsigned int NOMBRE_BOMBES = 4;          //Nombre de bombes dans le tableau
     bool dejaPresent;                               //Indique si emplacementBombe a déjà été selectionné
     unsigned int i;
     unsigned int emplacementsBombes[NOMBRE_BOMBES]; //Liste de tous les emplacements des bombes
@@ -404,7 +404,7 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
     colonneCaseCiblee = static_cast<unsigned short int>(lettreColonne - 65);
 }
 
-void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes)
+void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes, unsigned int &compteurCasesDecouvertes)
 {
     //MODIFICATIONS    
     if (instruction == 'C')
@@ -418,12 +418,13 @@ void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][L
         //Si la case est vide
         else if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
         {
-            remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR);
+            remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR, compteurCasesDecouvertes);
         }
         //Si la case est un nombre
         else                              
         {
             tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
+            compteurCasesDecouvertes++;
         }
     }
     else if ((instruction == 'S') && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(219)))
@@ -433,7 +434,7 @@ void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][L
     }
 }
 
-void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR)
+void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned int &compteurCasesDecouvertes)
 {
     unsigned short int y;
     unsigned short int x;
@@ -442,16 +443,15 @@ void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], 
     short int ymin;                 //
     short int ymax;                 //
     
-    if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)
+    if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0) // Case vide
     {
         tabVisible[ligneCaseCiblee][colonneCaseCiblee] = ' ';
 
+        //Ne prend pas en compte les cases en dehors du tableau
         ymin = static_cast<short int>(ligneCaseCiblee -1);
         ymax = static_cast<short int>(ligneCaseCiblee +1);
         xmin = static_cast<short int>(colonneCaseCiblee -1);
         xmax = static_cast<short int>(colonneCaseCiblee +1);
-
-        //Ne prend pas en compte les cases en dehors du tableau
         if (ligneCaseCiblee == 0)                 {ymin = ligneCaseCiblee;}
         else if (ligneCaseCiblee == LONGUEUR -1)  {ymax = ligneCaseCiblee;}
         if (colonneCaseCiblee == 0)               {xmin = colonneCaseCiblee;}
@@ -464,8 +464,7 @@ void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], 
                 if ( tabVisible[y][x] == char(219))    //Case non découverte
                 {
                     //if ( ( (y == ligneCaseCiblee) || (x == colonneCaseCiblee) ) && (tabInvisible[y][x] == 0) )      //
-                   
-                    remplissageCasesVidesRecursif(tabInvisible, tabVisible, y, x, LARGEUR, LONGUEUR);                 
+                    remplissageCasesVidesRecursif(tabInvisible, tabVisible, y, x, LARGEUR, LONGUEUR, compteurCasesDecouvertes);                 
                 }
             }
         }
@@ -473,6 +472,7 @@ void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], 
     else 
     {
         tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
+        unsigned int compteurCasesDecouvertes;
     }
 }
 
@@ -510,3 +510,19 @@ bool bombeCreusee(unsigned short int tabInvisible[][LONGUEUR], unsigned short in
     }
 }
 
+unsigned int casesADecouvrir(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR)
+{
+    unsigned int compteur;
+    compteur = 0;
+    for (unsigned short int ligne = 0; ligne < LONGUEUR; ligne++)
+    {
+        for (unsigned short int colonne = 0 ; colonne < LARGEUR ; colonne++)
+        {
+            if ( (tab[ligne][colonne] != 0) && (tab[ligne][colonne] != 9) )
+            {
+                compteur++;
+            }
+        }
+    } 
+    return compteur;
+}
