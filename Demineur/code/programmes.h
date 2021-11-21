@@ -28,7 +28,7 @@ enum Couleur
     blanc = 15
 };
 
-const unsigned int NOMBRE_BOMBES = 10;          //Nombre de bombes dans le tableau
+const unsigned int NOMBRE_BOMBES = 4;          //Nombre de bombes dans le tableau
 const short unsigned int LARGEUR = 10;
 const short unsigned int LONGUEUR = 10;
 

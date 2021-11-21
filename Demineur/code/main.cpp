@@ -7,11 +7,7 @@
 
 /*
 Reste à :
-    -gerer le comtpeur de cases réellement trouvees
-    -gerer le compteur de cases découvertes
-
-    -gerer la selection d'un nombre ou d'un drapeau
-    -empecher de toucher une case vide
+    -gerer la selection d'un nombre 
     -rajouter instructions pour help (H), recommencer(R) 
 
     -Résoudre problème tableau quand LARGEUR > 10    
@@ -91,14 +87,19 @@ int main (void)
         nombreDeCasesADecouvrir = casesADecouvrir(tableauInvisible, LARGEUR, LONGUEUR);
         modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes, compteurCasesDecouvertes);
         effacer();
-        cout << "Il y a " << nombreDeCasesADecouvrir << " cases a decouvrir." << endl;        
 
         while (true)
         {
-            afficheTableauNombres(tableauInvisible, LARGEUR, LONGUEUR);
+            effacer();
             afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);
+
+            if (compteurCasesDecouvertes == nombreDeCasesADecouvrir)
+            {
+                cout << endl << "FELICITATION, vous avez trouve toutes les cases !" << endl << endl;
+                break;
+            }
             
-            cout << "Cases découvertes : " << compteurCasesDecouvertes << endl;
+        
 
             //Saisie-Verif-Traduction de l'instruction
             saisieVerifTraduction(instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
@@ -119,13 +120,6 @@ int main (void)
                     break;
                 }
             }
-
-            if (compteurCasesDecouvertes == nombreDeCasesADecouvrir)
-            {
-                cout << "FELICITATION, vous avez trouvé toutes les cases !" << endl;
-                break;
-            }
-            effacer();
         }
         if (instruction != 'R')
         {

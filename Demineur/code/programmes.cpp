@@ -379,14 +379,17 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
     unsigned short int nombreLigne;
 
     //SAISIES-VERIF
-    cout << "Instruction (C pour Creuser / S pour Signaler) suivie des coordonnees (lettre puis nombre colles) de la forme 'SA7': "<< endl;
+    cout << endl
+         <<"Instruction (C pour Creuser / S pour Signaler / A pour Aide / R pour Recommencer)" << endl
+         <<"suivie des coordonnees (lettre puis nombre collees) de la forme 'SA7' " << endl << endl;
+
     while (true)
     {
         cout << "Saisie : ";
         cin >> instruction;
-        if (instruction != 'C' && instruction != 'S' && instruction != 'R')         {cout << "Mauvaise instruction saisie, recommencez." << endl;}
+        if (instruction != 'C' && instruction != 'S' && instruction != 'R' && instruction != 'A')         {cout << "Mauvaise instruction saisie, recommencez." << endl;}
     
-        if ( (instruction == 'C') || (instruction == 'S') )                    
+        else if ( (instruction == 'C') || (instruction == 'S') || (instruction == 'A') )                    
         {
             cin >> lettreColonne;
             cin >> nombreLigne;
@@ -394,7 +397,7 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
             else if ((nombreLigne <= 0) || (nombreLigne > LONGUEUR))                {cout << "Mauvaise ligne saisie, recommencez." << endl;}  
             else                                                                    {break;}
         }
-        else
+        else if (instruction == 'R')
         {
             break;
         }
@@ -406,32 +409,135 @@ void saisieVerifTraduction(char &instruction, unsigned short int &ligneCaseCible
 
 void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], char instruction, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, int &bombesRestantes, unsigned int &compteurCasesDecouvertes)
 {
-    //MODIFICATIONS    
-    if (instruction == 'C')
+    unsigned short int compteurDrapeauxAProximite;
+    unsigned short int y;
+    unsigned short int x;
+    short int xmin;                 //Encadrement de recherche de bombes
+    short int xmax;                 //
+    short int ymin;                 //
+    short int ymax;
+
+    // -- Creuser --
+    if ( (instruction == 'C') || (instruction == 'A') ) 
     {
-        //Si la case est une bombe
-        if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9)
+        //Si la case est une bombe et n'a pas de drapeau
+        if ( (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9) && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] != char(20)) )
         {
-            tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  'X';
+            if (instruction == 'A')
+            {
+                tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(20);
+            }
+            else
+            {
+                tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  'X';
+            }
             bombesRestantes -=1;
         }
-        //Si la case est vide
-        else if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
+
+        //Si la case n'a pas déjà été trouvée
+        if (tabVisible[ligneCaseCiblee][colonneCaseCiblee] == char(219))
+        {
+            //Si la case est vide
+            if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
+            {
+                remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR, compteurCasesDecouvertes);
+            }
+            //Si la case est un nombre
+            else                           
+            {
+                tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
+                compteurCasesDecouvertes++;
+            }
+        }
+
+        //Si la case est un nombre
+        if ( (int(tabVisible[ligneCaseCiblee][colonneCaseCiblee]) > 47)  && (int(tabVisible[ligneCaseCiblee][colonneCaseCiblee]) > 58) && (instruction == 'C') )
+        {
+            //Definition encadrement de recherche
+            ymin = static_cast<short int>(ligneCaseCiblee -1);
+            ymax = static_cast<short int>(ligneCaseCiblee +1);
+            xmin = static_cast<short int>(colonneCaseCiblee -1);
+            xmax = static_cast<short int>(colonneCaseCiblee +1);
+            if (ligneCaseCiblee == 0)                 {ymin = ligneCaseCiblee;}
+            else if (ligneCaseCiblee == LONGUEUR -1)  {ymax = ligneCaseCiblee;}
+            if (colonneCaseCiblee == 0)               {xmin = colonneCaseCiblee;}
+            else if (colonneCaseCiblee == LARGEUR -1) {xmax = colonneCaseCiblee;}
+
+            //Verification qu'il y ait le même nombre de drapeaux que le chiffre
+            compteurDrapeauxAProximite = 0;
+            for (y = ymin ; y < ymax +1 ; y++)
+            {
+                for ( x = xmin ; x < xmax +1 ; x++)
+                {
+                    if (tabVisible[y][x] == char(20))
+                    {
+                        compteurDrapeauxAProximite++;
+                    }
+                }
+            }
+
+            //Affichage cases a proximité
+            if (compteurDrapeauxAProximite == tabInvisible[ligneCaseCiblee][colonneCaseCiblee])
+            {
+                for (y = ymin ; y < ymax +1 ; y++)
+                {
+                    for ( x = xmin ; x < xmax +1 ; x++)
+                    {
+                        if (tabVisible[y][x] == char(219))
+                        {
+                            //Si la case est une bombe et n'a pas de drapeau
+                            if ( (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9) && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] != char(20)) )
+                            {
+                                tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  'X';
+                                bombesRestantes -=1;
+                            }
+
+                            //Si la case est vide
+                            if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0)        
+                            {
+                                remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR, compteurCasesDecouvertes);
+                            }
+
+                            //Si la case est un chiffre
+                            else                           
+                            {
+                                tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
+                                compteurCasesDecouvertes++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // -- Signaler--
+    else if (instruction == 'S')
+    {
+        if (tabVisible[ligneCaseCiblee][colonneCaseCiblee] == char(219))
+        {
+            tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(20);
+            bombesRestantes -=1;
+        }
+        else if (tabVisible[ligneCaseCiblee][colonneCaseCiblee] == char(20))
+        {
+            tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(219);
+            bombesRestantes +=1;
+        }
+    }
+
+    /**
+    // -- Aider --
+    if ((instruction == 'A') && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] == char(219)) )
+    {
+        if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 0) 
         {
             remplissageCasesVidesRecursif(tabInvisible, tabVisible, ligneCaseCiblee, colonneCaseCiblee, LARGEUR, LONGUEUR, compteurCasesDecouvertes);
         }
-        //Si la case est un nombre
-        else                              
-        {
-            tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
-            compteurCasesDecouvertes++;
-        }
+        if (tabInvisible[ligneCaseCiblee][colonneCaseCiblee] == 9)
+        else
     }
-    else if ((instruction == 'S') && (tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(219)))
-    {
-        tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(20);
-        bombesRestantes -=1;
-    }
+    */
 }
 
 void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][LONGUEUR], unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee, unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned int &compteurCasesDecouvertes)
@@ -472,7 +578,7 @@ void remplissageCasesVidesRecursif(unsigned short int tabInvisible[][LONGUEUR], 
     else 
     {
         tabVisible[ligneCaseCiblee][colonneCaseCiblee] =  char(tabInvisible[ligneCaseCiblee][colonneCaseCiblee] + 48) ;
-        unsigned int compteurCasesDecouvertes;
+        compteurCasesDecouvertes++;
     }
 }
 
@@ -526,3 +632,5 @@ unsigned int casesADecouvrir(unsigned short int tab[][LONGUEUR], unsigned short 
     } 
     return compteur;
 }
+
+
