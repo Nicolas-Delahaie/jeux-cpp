@@ -7,8 +7,7 @@
 
 /*
 Reste à :
-    -gerer la selection d'un nombre 
-    -rajouter instructions pour help (H), recommencer(R) 
+    -gerer la selection d'un nombre
 
     -Résoudre problème tableau quand LARGEUR > 10    
     -ameliorer la fonction récursive pour ne pas afficher sur les cotés
@@ -56,8 +55,7 @@ int main (void)
 
     //    *************      I N I T I A L I S A T I O N      *************
     jouer = true;
-    bombesRestantes = NOMBRE_BOMBES;
-    compteurCasesDecouvertes = 0;
+
     
     // -- remplissage du tableau invisible --
 
@@ -76,6 +74,7 @@ int main (void)
     while (jouer)
     {
         // -- DEBUT DE PARTIE --
+        bombesRestantes = NOMBRE_BOMBES;
         compteurCasesDecouvertes = 0;
         remplissageTableauVisible(tableauVisible, LARGEUR, LONGUEUR);
         afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);

@@ -261,7 +261,7 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
 
 void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
-    const unsigned int NOMBRE_BOMBES = 4;          //Nombre de bombes dans le tableau
+    const unsigned int NOMBRE_BOMBES = 5;          //Nombre de bombes dans le tableau
     bool dejaPresent;                               //Indique si emplacementBombe a déjà été selectionné
     unsigned int i;
     unsigned int emplacementsBombes[NOMBRE_BOMBES]; //Liste de tous les emplacements des bombes
@@ -519,6 +519,7 @@ void modifCase (unsigned short int tabInvisible[][LONGUEUR], char tabVisible[][L
             tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(20);
             bombesRestantes -=1;
         }
+
         else if (tabVisible[ligneCaseCiblee][colonneCaseCiblee] == char(20))
         {
             tabVisible[ligneCaseCiblee][colonneCaseCiblee] = char(219);

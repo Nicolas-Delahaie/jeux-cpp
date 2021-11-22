@@ -7,11 +7,7 @@
 
 /*
 Reste à :
-    -gerer le comtpeur de cases réellement trouvees
-    -gerer le compteur de cases découvertes
-
-    -gerer la selection d'un nombre ou d'un drapeau
-    -empecher de toucher une case vide
+    -gerer la selection d'un nombre 
     -rajouter instructions pour help (H), recommencer(R) 
 
     -Résoudre problème tableau quand LARGEUR > 10    
@@ -47,11 +43,13 @@ int main (void)
     bool jouer;                                                     //Indique si le joueur veut jouer
     char instruction;                                               //Instruction donnée par l'utilisateur. S comme Signaler ou C comme creuser
     
-    int bombesRestantes;                                            //Nombre de bombes restantes à trouver
     unsigned short int ligneCase;                                   //Ligne de la case désignée par l'utilisateur
     unsigned short int colonneCase;                                 //Colonne de la case désignée par l'utilisateur
-    unsigned int nombreDeCasesADecouvrir;                           //Nombre de cases totales à découvrir
+    
+    int bombesRestantes;                                            //Nombre de bombes theoriquement restantes
     unsigned int compteurCasesDecouvertes;                          //Compteur du nombre de cases découvertes
+    unsigned int nombreDeCasesADecouvrir;                             //Nombre de cases a decouvrir ayant des chiffres
+    
     short unsigned int tableauInvisible[LARGEUR][LONGUEUR];         //Tableau Invisible, composé de 9 pour les bombes et d'un nombre représentant le nombre de bombes sur les 8 cases adjacentes
     char tableauVisible[LARGEUR][LONGUEUR];                         //Tableau Visible, composé de dalles, completé au fur-et-à-mesure de la partie par le joueur
 
@@ -59,7 +57,7 @@ int main (void)
     //    *************      I N I T I A L I S A T I O N      *************
     jouer = true;
     bombesRestantes = NOMBRE_BOMBES;
-    nombreDeCasesADecouvrir = LARGEUR*LONGUEUR - NOMBRE_BOMBES;
+    compteurCasesDecouvertes = 0;
     
     // -- remplissage du tableau invisible --
 
@@ -86,20 +84,28 @@ int main (void)
 
         //Initialisation des tableaux en fonction des emplacements de bombe
         remplissageTableauInvisible(tableauInvisible, LARGEUR, LONGUEUR, ligneCase, colonneCase);
-        
-        modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes);
+        nombreDeCasesADecouvrir = casesADecouvrir(tableauInvisible, LARGEUR, LONGUEUR);
+        modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes, compteurCasesDecouvertes);
         effacer();
-        
+
         while (true)
         {
-            afficheTableauNombres(tableauInvisible, LARGEUR, LONGUEUR);
+            effacer();
             afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);
+
+            if (compteurCasesDecouvertes == nombreDeCasesADecouvrir)
+            {
+                cout << endl << "FELICITATION, vous avez trouve toutes les cases !" << endl << endl;
+                break;
+            }
             
+        
+
             //Saisie-Verif-Traduction de l'instruction
             saisieVerifTraduction(instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
             
             //Modification adaptée à l'instruction
-            modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes);
+            modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes, compteurCasesDecouvertes);
             if ( instruction == 'R')
             {
                 break;
@@ -114,13 +120,6 @@ int main (void)
                     break;
                 }
             }
-
-            if (compteurCasesDecouvertes == nombreDeCasesADecouvrir)
-            {
-                cout << "FELICITATION, vous avez trouvé toutes les cases !" << endl;
-                break;
-            }
-            effacer();
         }
         if (instruction != 'R')
         {
