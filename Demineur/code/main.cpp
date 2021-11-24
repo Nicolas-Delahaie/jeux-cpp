@@ -76,6 +76,7 @@ int main (void)
         // -- DEBUT DE PARTIE --
         bombesRestantes = NOMBRE_BOMBES;
         compteurCasesDecouvertes = 0;
+        test();
         remplissageTableauVisible(tableauVisible, LARGEUR, LONGUEUR);
         afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);
 

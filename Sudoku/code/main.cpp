@@ -36,23 +36,22 @@ X X X | X X X | X X X
 int main(void)
 {
     bool deplacement;
-    unsigned short int ligneEmplacement;
-    unsigned short int colonneEmplacement;
-    unsigned short int grille[9][9] = {{8,2,9,1,8,3,6,2,9},{9,1,8,2,7,3,0,2,9},{9,1,8,2,7,3,9,2,8},{1,0,2,9,1,0,2,7,3},{1,0,2,9,1,8,3,6,4},{9,1,0,2,9,3,8,4,7},{1,9,2,8,3,0,1,8,3},{0,6,4,9,2,6,4,4,0},{0,1,9,2,8,3,6,4,9}};
+    short int ligneEmplacement;
+    short int colonneEmplacement;
+    unsigned short int grille[9][9] = {{8,2,9,10,8,3,6,2,10},{9,10,8,2,7,10,0,2,9},{9,1,8,2,10,3,9,2,8},{10,10,10,9,1,0,2,7,3},{10,0,2,9,1,8,10,6,10},{9,1,0,10,9,3,8,4,10},{1,9,10,8,3,0,1,8,3},{0,10,4,9,2,10,4,4,0},{10,10,9,2,8,3,6,4,9}};
 
     //afficheGrille(grille);
     ligneEmplacement = 4;
     colonneEmplacement = 4;
     deplacement = true;
 
-    while(true)
+    while(deplacement)
     {
-        int saisie1;
-        int saisie2;
-        saisie1 = getch();
-        saisie2  = getch();
-        cout  <<  saisie1 << "    PUIS   " << saisie2 << endl;
-    }    
+        afficheGrille(grille, ligneEmplacement, colonneEmplacement);
+        saisieDeplacement(ligneEmplacement, colonneEmplacement, deplacement);
+        effacer();
+        
+    }
     
 
 
