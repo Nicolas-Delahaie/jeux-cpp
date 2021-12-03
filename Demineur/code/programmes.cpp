@@ -182,7 +182,11 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
             afficherLigne(LARGEUR+1);
             //Affichage lettres colorees
             
-            if (bombesRestantes >= 10)
+            if (bombesRestantes >= 100)
+            {
+                cout << "|" << bombesRestantes << "|";
+            }
+            else if (bombesRestantes >= 10)
             {
                 cout << "| " << bombesRestantes << "|";
             }
@@ -261,7 +265,7 @@ void afficheTableauCaracteres(char tab[][LONGUEUR], unsigned short int LARGEUR, 
 
 void remplissageTableauInvisible(unsigned short int tab[][LONGUEUR], unsigned short int LARGEUR, unsigned short int LONGUEUR, unsigned short int ligneCaseCiblee, unsigned short int colonneCaseCiblee)
 {
-    const unsigned int NOMBRE_BOMBES = 6;          //Nombre de bombes dans le tableau
+    const unsigned int NOMBRE_BOMBES = 20;          //Nombre de bombes dans le tableau
     bool dejaPresent;                               //Indique si emplacementBombe a déjà été selectionné
     unsigned int i;
     unsigned int emplacementsBombes[NOMBRE_BOMBES]; //Liste de tous les emplacements des bombes

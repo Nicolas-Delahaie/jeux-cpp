@@ -5,12 +5,11 @@
 */
 
 
+
 /*
 Reste à :
-    -gerer la selection d'un nombre
-
-    -Résoudre problème tableau quand LARGEUR > 10    
-    -ameliorer la fonction récursive pour ne pas afficher sur les cotés
+    - remplacer remplissageTableauInvisible en fonction pour qu'il dise si le nombre de bombes est torp élevé pour la largeur et la longueur 
+    - Gérer le R 
 */
 
 
@@ -76,17 +75,17 @@ int main (void)
         // -- DEBUT DE PARTIE --
         bombesRestantes = NOMBRE_BOMBES;
         compteurCasesDecouvertes = 0;
-        test();
         remplissageTableauVisible(tableauVisible, LARGEUR, LONGUEUR);
         afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);
 
+        //Saisie
         saisieVerifTraduction(instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR);
 
         //Initialisation des tableaux en fonction des emplacements de bombe
         remplissageTableauInvisible(tableauInvisible, LARGEUR, LONGUEUR, ligneCase, colonneCase);
         nombreDeCasesADecouvrir = casesADecouvrir(tableauInvisible, LARGEUR, LONGUEUR);
         modifCase(tableauInvisible, tableauVisible, instruction, ligneCase, colonneCase, LARGEUR, LONGUEUR, bombesRestantes, compteurCasesDecouvertes);
-        effacer();
+        
 
         while (true)
         {
@@ -110,17 +109,20 @@ int main (void)
             {
                 break;
             }
-            if (instruction == 'C')
+            else if (instruction == 'C')
             {
                 if (bombeCreusee(tableauInvisible, ligneCase, colonneCase))
                 {
                     remplissageEcranFin(tableauInvisible, tableauVisible, LARGEUR, LONGUEUR);
+                    effacer();
                     afficheTableauCaracteres(tableauVisible, LARGEUR, LONGUEUR, bombesRestantes);
                     cout << "VOUS AVEZ PERDU !" << endl;
                     break;
                 }
             }
         }
+
+        //En fin de partie
         if (instruction != 'R')
         {
             cout << "Recommencer ? oui / non" << endl;
@@ -130,7 +132,9 @@ int main (void)
                 cout << "Pas de probleme, tchouss" << endl;
                 jouer = false;
             }
+            effacer();
         } 
+        //Si le joueur veut recommencer
         else 
         {
             effacer();
