@@ -18,6 +18,15 @@
 using namespace std;
 
 /*
+A faire :
+    -Retoucher l'affichage en rajoiutant l'étape et le nombre de disques explicitement
+    -Envoyer code à carpentier
+    -Ajouter &é" aux touches
+    -Faire un algo automatique qui déplace une pile sur une autre 
+
+Saisie-verif du nombre de disques
+
+
      1    |     2     |     3
 ----------|-----------|-----------
           |           |
@@ -45,11 +54,18 @@ int main()
 
     jouer = true;
 
+    /*
+    int test;
+    while(true)
+    {
+        test = getch();
+        cout << test << endl;
+    }
+    */
 
     while(jouer)
     {
         //Saisie-Verif du nombre de disques
-        system("CLS");
         cout << "Entrer le nbre de disques de la tour de Hanoi : ";
         cin >> nbDisques;
         
@@ -75,7 +91,7 @@ int main()
                 if (estDeplacable(lesTours[tourOrigine], lesTours[tourDestination]))
                 {
                     system("CLS");
-                    deplacerDisque(lesTours[tourOrigine], lesTours[tourDestination]);
+                    deplacerDisque(lesTours[tourOrigine], lesTours[tourDestination], saves);
                     afficherToursJoli(lesTours, nbDisques);
                 }
                 else
@@ -93,30 +109,57 @@ int main()
             // Abandon ou retour
             else
             {
-                cout << "origine : " << tourOrigine << endl << "destination : " << tourDestination << endl;
             
                 //Abandon
-                if (tourOrigine == 10)
+                if (tourOrigine == 3)
                 {
                     break;
                 }
 
                 //Retour arrière
-                else if (tourDestination == 11)
-                {
-                    deplacerDisque(lesTours[tourOrigine], lesTours[tourDestination]);
+                else if (tourOrigine == 4)
+                {   
+                    /*
+                    if (estVide(saves[0]))
+                    {
+                        cout << "T'es au debut bg" << endl;
+                    }
+                    UnElement nombreDepile;
+                    depiler(saves[0], nombreDepile);
+                    tourOrigine = nombreDepile;
+                    depiler(saves[1], nombreDepile);
+                    tourDestination = nombreDepile;
+
+                    deplacerDisque(lesTours[tourOrigine], lesTours[tourDestination], saves);
+                    */ 
+                   cout << "Retour théorique" << endl;
                 }   
-            } 
-        }
+            }  
+        } 
+        //Partie gagnee
         if (gagne)
         {
             cout << endl << "T'AS GAGNE BG JTM" << endl ;
             cout << "Recommencer ? (o/n)  ";
             reponseFin = getch();
+
+            //Joueur arrete
             if ((reponseFin == 'n') || (reponseFin == 'N'))
             {
                 jouer = false;
+                cout << endl;
             }
+            //Joueur continue
+            else
+            {
+                system("CLS");
+            }
+        }
+
+        //Partie recommencee
+        else
+        {
+            system("CLS");
         }
     }
 

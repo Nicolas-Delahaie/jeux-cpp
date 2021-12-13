@@ -14,7 +14,7 @@ bool estDeplacable(const UnePile tourOrigine, const UnePile tourDestination);
 
 
 /* ---------- Primitives -----------*/
-void deplacerDisque(UnePile &tourOrigine, UnePile &tourDestination);
+void deplacerDisque(UnePile &tourOrigine, UnePile &tourDestination, UnePile saves[]);
 // But : déplace un disque d'une tour à une autre
 // pré-condition : la tour de destination peut accueillir le disque de la tour d'origine
 void remplirTour(UnePile &tourARemplir , const unsigned int nbDisques);
@@ -37,6 +37,8 @@ bool saisieVerifDeplacementDemande(unsigned int& origine, unsigned int& destinat
    // Si elle est mauvaise, renvoie origine selon un code :
    //  10 pour la touche espace
    //  11 pour la touche '²'
+bool traductionSaisie(unsigned int &saisie);
+//Traduit la saisie de manière à indiquer si elle est bonne et si c'est le cas, la modifier en 1, 2, 3 ou 51 pour ²
 
 
 
