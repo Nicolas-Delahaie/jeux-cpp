@@ -54,14 +54,14 @@ int main()
 
     jouer = true;
 
-    /*
+  /*  
     int test;
     while(true)
     {
         test = getch();
         cout << test << endl;
     }
-    */
+*/    
 
     while(jouer)
     {
@@ -100,7 +100,7 @@ int main()
                     afficherToursJoli(lesTours, nbDisques);
                     cout << endl << "Deplacement impossible";
                 }
-                if (estVide(lesTours[0]) && (estVide(lesTours[1])))
+                if ( (estVide(lesTours[0])) && (estVide(lesTours[1])) )
                 {
                     gagne = true;
                 }
@@ -117,8 +117,9 @@ int main()
                 }
 
                 //Retour arrière
-                else if (tourOrigine == 4)
+                else if ( (tourOrigine == 4) || (tourDestination == 4))
                 {   
+                    cout << "Retour théorique" << endl;
                     /*
                     if (estVide(saves[0]))
                     {
@@ -132,7 +133,7 @@ int main()
 
                     deplacerDisque(lesTours[tourOrigine], lesTours[tourDestination], saves);
                     */ 
-                   cout << "Retour théorique" << endl;
+                   
                 }   
             }  
         } 
