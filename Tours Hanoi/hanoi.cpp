@@ -7,17 +7,30 @@ using namespace std;
 /* ---------- Observateurs -----------*/
 bool estDeplacable(const UnePile tourOrigine, const UnePile tourDestination)
 {
+    //cout << "Debug : sommet origine : " << sommet(tourOrigine) << endl
+    //     << "Debug : sommet destination : " << sommet(tourDestination) << endl;
+
     //Disque deplaçable
-    if (((estVide(tourDestination)) & !(estVide(tourOrigine))) || (sommet(tourOrigine) < sommet(tourDestination)))
+    if (estVide(tourOrigine))
+    {
+        return false;
+    }
+
+    //Destination vide
+    if (estVide(tourDestination))
+    {
+        return true;
+    }
+
+    //Disques superposables
+    if ((sommet(tourOrigine)) < sommet(tourDestination))    
     {
         return true;
     }
 
     //Disque indéplaçable
-    else 
-    {
-        return false;
-    }
+    return false;
+    
 }
 
 /* ---------- Primitives -----------*/
@@ -172,37 +185,36 @@ bool saisieVerifDeplacementDemande(unsigned int &origine, unsigned int &destinat
         //Traduction/analyse premiere saisie
         if (traductionSaisie(origine))
         {
-            cout << char(127);
-
             // ² pour CTRL-Z
             if (origine == 4)
             {
                 return false;
             }
+
+            cout << char(127);
             
 
             // -- Deuxieme saisie --
             destination = getch();
-
             //Traduction/analyse deuxieme saisie
             if (traductionSaisie(destination))
             {
-                cout << char(127);
-
-                // ² pour CTRL-Z
+                //CTRL-Z
                 if (destination == 4)
                 {
                     return false;
                 }
+
+                cout << char(127);
                 
                 //Abandon
-                else if ((origine == 3) && (destination == 3))
+                if ((origine == 3) && (destination == 3))
                 {
                     return false;
                 }
                 
                 //Aucun espace
-                else if ((origine !=3) & (destination != 3))
+                if ((origine !=3) && (destination != 3))
                 {
                     return true;
                 }
@@ -222,6 +234,7 @@ bool traductionSaisie(unsigned int &saisie)
         case int(' '): saisie = 3; break;
 
         //Retour en arrière
+        case int('0'): saisie = 4; break;  
         case int('?'): saisie = 4; break;
         case int(','): saisie = 4; break;
         case 253: saisie = 4; break;        //²
