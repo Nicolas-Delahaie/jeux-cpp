@@ -120,10 +120,11 @@ int main()
 
     //initialisations
     initialiser(historique);
-    argentActuel = 500;
-    mise = 5;
+    argentActuel = 30;
+    mise = 1;
     ligneCaseCourante = 3;
     colonneCaseCourante = 1;
+
 
     //Jouer la partie
     while (argentActuel > 0)
@@ -134,13 +135,7 @@ int main()
         {
             retournerAuDebut();
             cout << "Solde : " << argentActuel << endl << endl;
-            affichageSimple(ligneCaseCourante, colonneCaseCourante, mise, false);
-            for (unsigned short int i = 0; i < historique.nbElements ; i++)
-            {
-                cout << " | ";
-                afficherNombreEnCouleur(historique.elements[i], couleurTirage(historique.elements[i]));
-            }
-            cout << endl;
+            affichageSimple(ligneCaseCourante, colonneCaseCourante, mise, false, historique);
             saisieDeplacement(ligneCaseCourante, colonneCaseCourante, saisie);
         }
 
@@ -149,16 +144,16 @@ int main()
         while (!(validee))
         {
             retournerAuDebut();
-            cout << "Solde : " << argentActuel << endl << endl;
-            affichageSimple(ligneCaseCourante, colonneCaseCourante, mise, true);
-            for (unsigned short int i = 0; i < historique.nbElements ; i++)
-            {
-                cout << " | ";
-                afficherNombreEnCouleur(historique.elements[i], couleurTirage(historique.elements[i]));
-            }
-            cout << endl;
+            cout << "Solde : " << argentActuel << "      " << endl << endl;
+            affichageSimple(ligneCaseCourante, colonneCaseCourante, mise, true, historique);
             ajustementMise(mise, validee);
+            //Ne peut pas valider si la mise est supérieure à l'argent actuel
+            if (argentActuel < mise)
+            {
+                validee = false;
+            }
         }
+    
         argentActuel -= mise;
 
         pari = ordre[ligneCaseCourante][colonneCaseCourante];
@@ -168,8 +163,11 @@ int main()
         ajouterElement(historique, resultat);
 
         //Affichage tirage et gain
-        cout << endl << "--> ";
-        afficherNombreEnCouleur(resultat, couleurTirage(resultat));
+        retournerAuDebut();
+        cout << "Solde : " << argentActuel << "      " << endl << endl;
+        affichageSimple(ligneCaseCourante, colonneCaseCourante, mise, true, historique);
+
+
         cout << endl;
 
         //Reussite
@@ -177,15 +175,16 @@ int main()
         {
             argentGagne = static_cast<unsigned short int>(gain(pari, mise));
             argentActuel += argentGagne;
-            cout << "  +" << argentGagne - mise;
+            cout << "  +" << argentGagne - mise << "      " << endl;
         }
         //Echec
         else
         {
-            cout << "  -" << mise ;
+            cout << "  -" << mise << "      " << endl;
         }
 
         pause(0);
+        effacer();
 
     }
     cout << "Tas plus d argent man" << endl;

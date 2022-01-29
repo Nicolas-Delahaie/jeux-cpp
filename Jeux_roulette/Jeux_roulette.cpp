@@ -60,6 +60,7 @@ Couleur couleurTirage(unsigned short int numero)
     const unsigned short int NB_NUMEROS_ROUGES = 19;
     unsigned short int listeNumerosRouges[NB_NUMEROS_ROUGES] = {1,3,5,7,9,12,14,16,18,21,23,25,27,28,30,32,34,36,46};
     unsigned short int listeNumerosNoirs[NB_NUMEROS_ROUGES] = {2,4,6,8,10,11,13,15,17,19,20,22,24,26,29,31,33,35,44};
+    
     if (numero == 0)
     {
         return blancSurVert;
@@ -255,7 +256,7 @@ unsigned short int equivalenceEnNombre (string pari)
 
 
 // A F F I C H A G E S
-void affichageSimple (unsigned short int ligneSelection, unsigned short int colonneSelection, unsigned int mise, bool reglageMise)
+void affichageSimple (unsigned short int ligneSelection, unsigned short int colonneSelection, unsigned int mise, bool reglageMise, File historique)
 {
     unsigned short int element;                 //Element courant du tableau ordre
     string elementAffichable;                   //Chaine de caractère représentent element
@@ -457,6 +458,38 @@ void affichageSimple (unsigned short int ligneSelection, unsigned short int colo
     //Ligne 9 : Barre
     afficherTexteEnCouleur("      |--------------------------------------------------------------|---------|", blancSurVert);
     cout << endl;
+
+    //ligne 10 (et 11) : Resultats precedents
+    if (historique.nbElements != 0)
+    {
+        afficherTexteEnCouleur("      | ", blancSurVert);
+        if (historique.nbElements <= 12)
+        {
+            for (unsigned short int i = 0; i < historique.nbElements ; i++)
+            {
+                afficherTexteEnCouleur(equivalenceEnString(historique.elements[i]), couleurTirage(historique.elements[i]));
+                afficherTexteEnCouleur(" | ", blancSurVert);
+            }
+            cout << endl;
+        }
+        
+        else
+        {
+            for (unsigned short int i = 0; i < 12 ; i++)
+            {
+                afficherTexteEnCouleur(equivalenceEnString(historique.elements[i]), couleurTirage(historique.elements[i]));
+                afficherTexteEnCouleur(" | ", blancSurVert);
+            }
+            cout << endl;
+
+            afficherTexteEnCouleur("      | ", blancSurVert);
+            for (unsigned short int i = 12; i < historique.nbElements ; i++)
+            {
+                afficherTexteEnCouleur(equivalenceEnString(historique.elements[i]), couleurTirage(historique.elements[i]));
+                afficherTexteEnCouleur(" | ", blancSurVert);
+            }
+        }
+    }
 }
 
 void retournerAuDebut()
@@ -663,6 +696,7 @@ void saisieDeplacement (short int &ligneCaseCourante, short int &colonneCaseCour
 void ajustementMise (unsigned int &mise, bool &validee)
 {
     int saisie;
+    int saisieFleche;
 
     //Saisie
     saisie = getch();
@@ -683,7 +717,19 @@ void ajustementMise (unsigned int &mise, bool &validee)
         case 6: mise+=500;   break;
         case 7: mise+=1000;   break;
         
-        default: cout << "wtf man (ajustement mise)" << endl; break;
+        case 224: 
+            saisieFleche = getch();
+            if (saisieFleche == 72) //Haut
+            {
+                mise++;
+            }
+            else if (saisieFleche == 80) //Bas
+            {
+                mise--;
+            }
+        break;
+
+        //default: cout << "wtf man (ajustement mise)" << endl; break;
         }
     }
 
@@ -698,8 +744,6 @@ void ajustementMise (unsigned int &mise, bool &validee)
     {
         mise = 0;
     }
-
-
 }
 
 

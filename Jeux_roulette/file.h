@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const unsigned short int tailleFile = 20;
+const unsigned short int tailleFile = 24;
 
 typedef unsigned short int UnElement;
 struct File     //File contenant 20 elements dans un tableau ainsi qu'une propriété indiquant le nombres d'élements actuels

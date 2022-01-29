@@ -11,7 +11,7 @@ void initialiser (File& f)
 
 void ajouterElement (File& f, UnElement e)
 {
-    if (f.nbElements >= 20)
+    if (f.nbElements >= tailleFile)
     {
         defiler(f);
     }
@@ -21,7 +21,7 @@ void ajouterElement (File& f, UnElement e)
 void enfiler (File& f, UnElement e)
 {
     //Exception : file remplie
-    if (f.nbElements >= 20)
+    if (f.nbElements >= tailleFile)
     {
         cout << "File pleine : impossible d'enfiler" << endl;
     }

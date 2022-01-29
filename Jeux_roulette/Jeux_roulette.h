@@ -3,6 +3,7 @@
 #define ROULETTE_H
 
 #include "game-tools.h"
+#include "file.h"
 using namespace std;
 
 
@@ -21,6 +22,7 @@ unsigned short int tirage();
 // I N D I C A T E U R S
 /**
  * @brief Renvoie le nombre associé à la couleur du numero (0 -> vert, 20 -> noir, 16 -> rouge).
+ *        Il renvoie du blanc sur orange si le numero est selectionne
  * 
  * @param numero 
  * @return unsigned short int 
@@ -69,7 +71,7 @@ void affichageResultatDynamique (unsigned short int resultat, float duree);
  * @param colonneSelection 
  * @param mise 
  */
-void affichageSimple (unsigned short int ligneSelection, unsigned short int colonneSelection, unsigned int mise, bool reglageMise);
+void affichageSimple (unsigned short int ligneSelection, unsigned short int colonneSelection, unsigned int mise, bool reglageMise, File historique);
 /**
  * @brief Retourne au début de la conseole pour actualiser les nouveaux élements
  * 
@@ -115,6 +117,14 @@ void saisieDeplacement (short int &ligneEmplacement, short int &colonneEmplaceme
  */
 void ajustementMise (unsigned int &mise, bool &validee);
 
+
+// A U T O M A T I S A T I O N
+/**
+ * @brief Calcule la moyenne sur nbLancers de la fonctions saisie dans ce sous-programme
+ * 
+ * @param nbLancers 
+ */
+void moyenne(unsigned int nbLancers);
 
 
 //unsigned short int pourcentage
