@@ -20,8 +20,7 @@ using namespace std;
 /*
 A faire :
     -Faire un algo automatique qui déplace une pile sur une autre 
-
-Saisie-verif du nombre de disques
+    -Saisie-verif du nombre de disques
 
 
      1    |     2     |     3
@@ -59,7 +58,7 @@ int main()
         cout << "Entrer le nbre de disques de la tour de Hanoi : ";
         cin >> nbDisques;
         
-
+        
         // Initialisations
         initialiserPiles(lesTours, 2);
         initialiserPiles(lesTours, 3);
@@ -68,7 +67,7 @@ int main()
         compteurTour = 0;
         posPetit = 0;
 
-        //Affichages
+        //Affichage
         system("CLS");
         afficherToursJoli(lesTours, nbDisques);
         cout << endl;
