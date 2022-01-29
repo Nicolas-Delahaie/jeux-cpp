@@ -1,8 +1,9 @@
 #include "pile.h"
 #include "hanoi.h"
 #include <conio.h>  //Pour getch
-#include <iostream> //pour l'usage du type string
+#include <iostream>
 using namespace std;
+
 
 /* ---------- Observateurs -----------*/
 bool estDeplacable(const UnePile tourOrigine, const UnePile tourDestination)
@@ -33,18 +34,15 @@ bool estDeplacable(const UnePile tourOrigine, const UnePile tourDestination)
     
 }
 
+
 /* ---------- Primitives -----------*/
-void deplacerDisque(UnePile &tourOrigine, UnePile &tourDestination, UnePile saves[])
+void deplacerDisque(UnePile &tourOrigine, UnePile &tourDestination)
 {
     UnElement disque;
 
     //Deplacement de disque
     depiler(tourOrigine, disque);
     empiler(tourDestination, disque);
-
-    //Ajout aux saves
-    saves[0] = tourOrigine;
-    saves[1] = tourDestination;
 }
 
 void remplirTour(UnePile &tourARemplir, const unsigned int nbDisques)
@@ -63,8 +61,41 @@ void initialiserPiles(UnePile pile[], unsigned int taille)
     }
 }
 
+unsigned short int tourSuivante (unsigned short int indiceTour)
+{
+    return static_cast<unsigned short int>((indiceTour+1)%3);
+}
+
+void deplacerPetit (UnePile tours[], unsigned short int &posPetit)
+{
+    unsigned short int futurPetit;
+    futurPetit = tourSuivante(posPetit);
+    deplacerDisque(tours[posPetit], tours[futurPetit]);
+    posPetit = futurPetit;
+}
+
+
+void deplacerAutre(UnePile tours[], unsigned short int posPetit, unsigned int nbDisques)
+{
+    
+    unsigned short int futurAutre;
+    futurAutre = tourSuivante(posPetit);
+    if (taille(tours[futurAutre]) != nbDisques)
+    {
+        if (!(estDeplacable(tours[posPetit], tours[futurAutre])))
+        {
+            futurAutre = tourSuivante(futurAutre);
+            if (estDeplacable(tours[posPetit], tours[futurAutre]))
+            {
+                deplacerDisque(tours[posPetit], tours[futurAutre]);
+                posPetit = futurAutre;
+            }
+        }
+    }    
+}
+
 /* ---------- Affichage -----------*/
-void afficherToursJoli(const UnePile lesTours[], const unsigned short int &nombreDisques)
+void afficherToursJoli(const UnePile lesTours[], unsigned int nombreDisques)   
 {
     unsigned short int espaceMilieu;  //Nombre de characteres séparant une bordure du centre
     unsigned short int espaceBordure; //Espace séparant la bordure (|) d'un disque (-)
@@ -73,9 +104,8 @@ void afficherToursJoli(const UnePile lesTours[], const unsigned short int &nombr
 
     UnePile copieTours[3];  //Copie de lesTours qui est modifiable
     UnElement nombreDepile; //Disque (nombre) depilé d'une tour
-    unsigned int hauteursPiles[3];
 
-    largeur = 1 + 2 * nombreDisques;
+    largeur = static_cast<short unsigned int>(1 + 2 * nombreDisques);
     for (unsigned int i = 0; i < 3; i++)
     {
         copieTours[i] = lesTours[i];
@@ -117,7 +147,7 @@ void afficherToursJoli(const UnePile lesTours[], const unsigned short int &nombr
     cout << endl;
 
     //Autres lignes
-    for (unsigned short int etage = nombreDisques; etage > 0; etage--)
+    for (unsigned int etage = nombreDisques; etage > 0; etage--)
     {
         cout << "|";
         for (unsigned short int colonne = 0; colonne < 3; colonne++)
@@ -128,8 +158,8 @@ void afficherToursJoli(const UnePile lesTours[], const unsigned short int &nombr
                 depiler(copieTours[colonne], nombreDepile);
 
                 //Calculs taille et espacements
-                tailleDisque = nombreDepile * 2 - 1;
-                espaceBordure = (largeur - tailleDisque) / 2;
+                tailleDisque = static_cast<short unsigned int>(nombreDepile * 2 - 1);
+                espaceBordure = static_cast<short unsigned int>((largeur - tailleDisque) / 2);
 
                 //Affichage disques
                 for (unsigned int i = 0; i < espaceBordure; i++)
@@ -172,11 +202,12 @@ void afficherToursJoli(const UnePile lesTours[], const unsigned short int &nombr
     }
 }
 
+
 /* ---------- Outils -----------*/
-bool saisieVerifDeplacementDemande(unsigned int &origine, unsigned int &destination)
+bool saisieVerifDeplacementDemande(unsigned int &origine, unsigned int &destination, unsigned int compteurTour)
 {
     cout << endl
-         << "Appuyez sur 1, 2 ou 3 | ";
+         << "Tour numero " << compteurTour + 1 << " , Appuyez sur 1, 2 ou 3 | ";
 
     while (true)
     {
@@ -185,8 +216,8 @@ bool saisieVerifDeplacementDemande(unsigned int &origine, unsigned int &destinat
         //Traduction/analyse premiere saisie
         if (traductionSaisie(origine))
         {
-            // ² pour CTRL-Z
-            if (origine == 4)
+            //CTRL-Z ou résolution auto
+            if ((origine == 4) || (origine == 5))
             {
                 return false;
             }
@@ -199,14 +230,14 @@ bool saisieVerifDeplacementDemande(unsigned int &origine, unsigned int &destinat
             //Traduction/analyse deuxieme saisie
             if (traductionSaisie(destination))
             {
-                //CTRL-Z
-                if (destination == 4)
+                //CTRL-Z ou résolution auto
+                if ((destination == 4) || (destination == 5))
                 {
                     return false;
                 }
 
                 cout << char(127);
-                
+            
                 //Abandon
                 if ((origine == 3) && (destination == 3))
                 {
@@ -233,11 +264,14 @@ bool traductionSaisie(unsigned int &saisie)
         //Abandon
         case int(' '): saisie = 3; break;
 
-        //Retour en arrière
+        //Retour
         case int('0'): saisie = 4; break;  
         case int('?'): saisie = 4; break;
         case int(','): saisie = 4; break;
         case 253: saisie = 4; break;        //²
+
+        //Resolution auto
+        case int('4'): saisie = 5; break;
         
 
         //1
